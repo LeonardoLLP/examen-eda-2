@@ -1,5 +1,6 @@
 import pandas as pd
 import seaborn as sns
+from matplotlib import pyplot as plt
 
 filepath_conversions = "conversiones.csv"
 filepath_navegacion = "navegacion.csv"
@@ -25,4 +26,6 @@ print(f"La tasa de conversión de llamadas es de {conversion_rate * 100}%")
 print(f'(Ver tabla "{conversion_rate_filename}")')
 
 
+sns.barplot(x=conversion_data.index, y=conversion_data.values)
+plt.savefig("plots/conversion_data")
 
