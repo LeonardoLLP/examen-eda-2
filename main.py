@@ -12,8 +12,8 @@ navegacion = pd.read_csv(filepath_navegacion, sep=";", parse_dates=True)
 print(conversions.head())
 print(navegacion.head())
 
-# print(conversions.columns)
-# print(navegacion.columns)
+print(conversions.columns)
+print(navegacion.columns)
 
 conversion_data = conversions.groupby("result")["result"].count()
 conversion_excel_filename = "excels/conversion_data.xlsx"
@@ -42,15 +42,22 @@ print(f'Ver tabla "{type_excel_filename} y {type_data_filename}')
 
 
 recurrent_data = navegacion.groupby("user_recurrent")["user_recurrent"].count()
-reurrent_excel_filename = "excels/recurrent_data.xlsx"
-pd.DataFrame(recurrent_data).to_excel(reurrent_excel_filename)
+recurrent_excel_filename = "excels/recurrent_data.xlsx"
+pd.DataFrame(recurrent_data).to_excel(recurrent_excel_filename)
 
 recurrent_data_adapted = recurrent_data.copy()
 recurrent_data_adapted.index = ["No recurrente", "Recurrente"]
 sns.barplot(x=recurrent_data_adapted.index, y=recurrent_data_adapted.values)
-recurrent_data_filename = "plots/conversion_data"
+recurrent_data_filename = "plots/recurrent_data"
 plt.savefig(recurrent_data_filename)
 
 recurrent_rate = recurrent_data.at[True] / len(navegacion.index)
 print(f"El porcentaje de usuarios recurrents fue de {recurrent_rate*100:.2f}%")
+print(f'(Ver tabla "{recurrent_excel_filename}" y "{recurrent_data_filename}"')
+
+
+gclid_analisis = navegacion.groupby("gclid")["gclid"].count()
+gclid_analisis_sorted = gclid_analisis.sort_values()
+print(gclid_analisis_sorted)
+print(gclid_analisis_sorted.shape)
 
