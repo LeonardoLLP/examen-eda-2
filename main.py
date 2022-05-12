@@ -9,23 +9,30 @@ conversions = pd.read_csv(filepath_conversions, sep=";", parse_dates=True)
 navegacion = pd.read_csv(filepath_navegacion, sep=";", parse_dates=True)
 
 #! Analisis dataset
-# print(conversions.head())
-# print(navegacion.head())
+print(conversions.head())
+print(navegacion.head())
 
 # print(conversions.columns)
 # print(navegacion.columns)
 
 conversion_data = conversions.groupby("result")["result"].count()
-print(conversion_data)
+# print(conversion_data)
 
 conversion_rate = conversion_data.at["Positivo"] / len(conversions.index)
 conversion_rate_filename = "excels/conversion_rate.xlsx"
 pd.DataFrame(conversion_data).to_excel(conversion_rate_filename)
 
-print(f"La tasa de conversión de llamadas es de {conversion_rate * 100}%")
-print(f'(Ver tabla "{conversion_rate_filename}")')
-
-
 sns.barplot(x=conversion_data.index, y=conversion_data.values)
-plt.savefig("plots/conversion_data")
+conversion_data_filename = "plots/conversion_data"
+plt.savefig(conversion_data_filename)
+
+print(f"La tasa de conversión de llamadas es de {conversion_rate * 100}%")
+print(f'(Ver tabla "{conversion_rate_filename}" y "{conversion_data_filename}")')
+
+type_data = conversions.groupby("lead_type")["lead_type"].count()
+print(type_data)
+
+
+
+
 
