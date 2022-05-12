@@ -15,6 +15,7 @@ print(navegacion.head())
 print(conversions.columns)
 print(navegacion.columns)
 
+
 conversion_data = conversions.groupby("result")["result"].count()
 conversion_excel_filename = "excels/conversion_data.xlsx"
 pd.DataFrame(conversion_data).to_excel(conversion_excel_filename)
@@ -26,6 +27,8 @@ plt.savefig(conversion_data_filename)
 conversion_rate = conversion_data.at["Positivo"] / len(conversions.index)
 print(f"La tasa de conversión de llamadas es de {conversion_rate * 100}%")
 print(f'(Ver tabla "{conversion_excel_filename}" y "{conversion_data_filename}")')
+
+
 
 type_data = conversions.groupby("lead_type")["lead_type"].count()
 type_excel_filename = "excels/type_data.xlsx"
@@ -39,6 +42,7 @@ call_rate = type_data.at["CALL"] / len(conversions.index)
 call_n, form_n = type_data.at["CALL"], type_data.at["FORM"]
 print(f"El número de llamadas fue de {call_n}, mientras que la tasa de forularios fue de {form_n}")
 print(f'Ver tabla "{type_excel_filename} y {type_data_filename}')
+
 
 
 recurrent_data = navegacion.groupby("user_recurrent")["user_recurrent"].count()
@@ -57,7 +61,16 @@ print(f'(Ver tabla "{recurrent_excel_filename}" y "{recurrent_data_filename}"')
 
 
 gclid_analisis = navegacion.groupby("gclid")["gclid"].count()
-gclid_analisis_sorted = gclid_analisis.sort_values()
+gclid_analisis_sorted = gclid_analisis.sort_values(ascending=False)
 print(gclid_analisis_sorted)
 print(gclid_analisis_sorted.shape)
+
+gclid_excel_filename = "excels/gclid_data.xlsx"
+pd.DataFrame(gclid_analisis_sorted).to_excel(gclid_excel_filename)
+
+sns.barplot(x=gclid_analisis_sorted.index, y=gclid_analisis_sorted.values)
+gclid_data_filename = "plots/gclid_data"
+plt.savefig(gclid_data_filename)
+
+
 
