@@ -68,9 +68,9 @@ print(gclid_analisis_sorted.shape)
 gclid_excel_filename = "excels/gclid_data.xlsx"
 pd.DataFrame(gclid_analisis_sorted).to_excel(gclid_excel_filename)
 
-sns.barplot(x=gclid_analisis_sorted.index, y=gclid_analisis_sorted.values)
-gclid_data_filename = "plots/gclid_data"
-plt.savefig(gclid_data_filename)
+# sns.barplot(x=gclid_analisis_sorted.index, y=gclid_analisis_sorted.values)
+# gclid_data_filename = "plots/gclid_data"
+# plt.savefig(gclid_data_filename)
 
 
 
