@@ -16,21 +16,30 @@ print(navegacion.head())
 # print(navegacion.columns)
 
 conversion_data = conversions.groupby("result")["result"].count()
-# print(conversion_data)
-
-conversion_rate = conversion_data.at["Positivo"] / len(conversions.index)
-conversion_rate_filename = "excels/conversion_rate.xlsx"
-pd.DataFrame(conversion_data).to_excel(conversion_rate_filename)
+conversion_excel_filename = "excels/conversion_data.xlsx"
+pd.DataFrame(conversion_data).to_excel(conversion_excel_filename)
 
 sns.barplot(x=conversion_data.index, y=conversion_data.values)
 conversion_data_filename = "plots/conversion_data"
 plt.savefig(conversion_data_filename)
 
+conversion_rate = conversion_data.at["Positivo"] / len(conversions.index)
 print(f"La tasa de conversión de llamadas es de {conversion_rate * 100}%")
-print(f'(Ver tabla "{conversion_rate_filename}" y "{conversion_data_filename}")')
+print(f'(Ver tabla "{conversion_excel_filename}" y "{conversion_data_filename}")')
 
 type_data = conversions.groupby("lead_type")["lead_type"].count()
-print(type_data)
+type_excel_filename = "excels/type_data.xlsx"
+pd.DataFrame(type_data).to_excel(type_excel_filename)
+
+sns.barplot(x=type_data.index, y=type_data.values)
+type_data_filename = "plots/type_data"
+plt.savefig(type_data_filename)
+
+call_rate = type_data.at["CALL"] / len(conversions.index)
+print(f"La tasa de llamadas fue de {call_rate * 100}, mientras que la tasa de forularios fue de {(1-call_rate) * 100}")
+print(f'Ver tabla "{type_excel_filename} y {type_data_filename}')
+
+
 
 
 
