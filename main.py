@@ -46,12 +46,11 @@ reurrent_excel_filename = "excels/recurrent_data.xlsx"
 pd.DataFrame(recurrent_data).to_excel(reurrent_excel_filename)
 
 recurrent_data_adapted = recurrent_data.copy()
-# recurrent_data_adapted.index = ["Recurrente"]
-print(recurrent_data)
+recurrent_data_adapted.index = ["No recurrente", "Recurrente"]
 sns.barplot(x=recurrent_data_adapted.index, y=recurrent_data_adapted.values)
 recurrent_data_filename = "plots/conversion_data"
 plt.savefig(recurrent_data_filename)
 
 recurrent_rate = recurrent_data.at[True] / len(navegacion.index)
-print(f"El porcentaje de usuarios recurrents fue de {recurrent_rate*100}%")
+print(f"El porcentaje de usuarios recurrents fue de {recurrent_rate*100:.2f}%")
 
