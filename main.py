@@ -36,12 +36,19 @@ type_data_filename = "plots/type_data"
 plt.savefig(type_data_filename)
 
 call_rate = type_data.at["CALL"] / len(conversions.index)
-print(f"La tasa de llamadas fue de {call_rate * 100}, mientras que la tasa de forularios fue de {(1-call_rate) * 100}")
+call_n, form_n = type_data.at["CALL"], type_data.at["FORM"]
+print(f"El número de llamadas fue de {call_n}, mientras que la tasa de forularios fue de {form_n}")
 print(f'Ver tabla "{type_excel_filename} y {type_data_filename}')
 
 
+recurrent_data = navegacion.groupby("user_recurrent")["user_recurrent"].count()
+reurrent_excel_filename = "excels/recurrent_data.xlsx"
+pd.DataFrame(recurrent_data).to_excel(reurrent_excel_filename)
 
+sns.barplot(x=recurrent_data.index, y=recurrent_data.values)
+recurrent_data_filename = "plots/conversion_data"
+plt.savefig(recurrent_data_filename)
 
-
-
+recurrent_rate = recurrent_data.at["user_recurrent"] / len(navegacion.index)
+print(f"La tasa de ")
 
