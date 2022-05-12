@@ -18,8 +18,8 @@ conversion_data = conversions.groupby("result")["result"].count()
 print(conversion_data)
 
 conversion_rate = conversion_data.at["Positivo"] / len(conversions.index)
-conversion_rate_filename = "excel/conversion_rate.csv"
-pd.DataFrame(list(conversion_rate)).to_excel(conversion_rate_filename)
+conversion_rate_filename = "excel/conversion_rate.xlsx"
+pd.DataFrame(conversion_data).to_excel(conversion_rate_filename)
 
 print(f"La tasa de conversión de llamadas es de {conversion_rate * 100}%")
 print(f'(Ver tabla "{conversion_rate_filename}")')
